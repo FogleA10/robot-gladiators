@@ -33,13 +33,13 @@ var fight = function (enemyName) {
             window.alert(playerName + "has decided to skip this fight. Goodbye!");
 
             //subtract money from  playerMoney for skipping
-            playerMoney = playerMoney - 10;
+            playerMoney= Math.max(0, playerMoney -10);
             console.log("playerMoney", playerMoney);
             break;
         }
     }
          // remove enemy's health by subtracting that amount set in the playerAttack variable 
-         enemyHealth = enemyHealth - playerAttack;
+         enemyHealth = Math.max(0, enemyHealth - playerAttack);
          console.log(
              playerName + "attacked " + enemyNames + ". " + enemyNames + "now has " + enemyHealth + "health remaining."
  
@@ -60,7 +60,7 @@ var fight = function (enemyName) {
 
             //remove player's health by subtracting the amount set in the enemyAttack variable 
           
-             playerHealth = playerHealth - enemyAttack;
+             playerHealth = Math.max(0, playerHealth - enemyAttack);
             console.log(
              enemyNames + "attacked " + playerName + ". " + playerName + " now has " + playerHealth + " health remaining."
             );
@@ -102,13 +102,26 @@ var fight = function (enemyName) {
         var pickedEnemyName = enemyNames[i];
         
         //reset enemyHealth before starting new fight
-        enemyHealth = 50;
+        var randomNumber = function(min, max) {
+            var value = Math.floor(Math.random() * (max - min + 1) + min);
+            
+
+            //generate random damage value based on player's attack power
+            var damage = randomNumber(playerAttack -3, playerAttack);
+
+            enemyHealth= Math.max(0, enemyHealth -damage);
+        
+
+
+        return value;
+        };
+
 
         //pass the pickedEnemyName variable's value into the fight function, where it will asssuje the value of the enemyName parameter
         fight(pickedEnemyName);
 
         //if player is still alive and we're not at the last enemy  in the array
-        if (playerHeatlh > 0 && i < enemyNames.length -1) {
+        if (playerHealth > 0 && i < enemyNames.length -1) {
             //ask if palyer wants to use the store before next round
             var storeConfirm = window.confirm(" The fight is over, visit the store before the next round?");
 
@@ -154,9 +167,9 @@ endGame();
     };
 
     // go to shop between battles function
-    var shop = funciton() {
+    var shop = function() {
         // ask player what they'd like to do 
-        var : shopOptionPrompt = window.prompt(
+        var shopOptionPrompt = window.prompt(
             "Would you like to REFILL your health, UPGRADE your attack or LEAVE the store? Please enter one: 'REFILL', 'UPGRADE', or 'LEAVE' to make a choice."
         );
         //use switch to carry out action
@@ -208,3 +221,13 @@ endGame();
 
     //start first game when page loads
     startGame();
+
+
+    //prints 3/141592653589793
+    console.log(Math.PI);
+
+    //round to the nearest whole number (4)
+    console.log(Math.round(4.4));
+
+    //prints the square root (5)
+    console.log(Math.sqrt(25));
